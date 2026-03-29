@@ -1,0 +1,18 @@
+#nullable enable
+
+namespace ScaleAI
+{
+    public partial interface IScaleAIClient
+    {
+        /// <summary>
+        /// Get batch status<br/>
+        /// Get the status of a batch with task counts grouped by status.
+        /// </summary>
+        /// <param name="batchName"></param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::ScaleAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.BatchStatus2> GetBatchStatusAsync(
+            string batchName,
+            global::System.Threading.CancellationToken cancellationToken = default);
+    }
+}

@@ -1,0 +1,1489 @@
+openapi: 3.0.3
+info:
+  title: Scale AI API
+  description: |
+    Scale AI API for data labeling, RLHF, and AI evaluation.
+    Provides programmatic access to manage projects, batches, tasks, files, and team members
+    for data annotation workflows.
+  version: "1.0.0"
+  contact:
+    name: Scale AI
+    url: https://scale.com
+
+servers:
+  - url: https://api.scale.com/v1
+
+security:
+  - BearerAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    # ─── Project ───
+    Project:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Task type for this project (e.g., imageannotation, textcollection).
+        name:
+          type: string
+          description: Unique project name identifier.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of project creation.
+        created_by:
+          type: string
+          description: Email of the user who created the project.
+        created_with:
+          type: string
+          description: Method used to create the project (api, dashboard).
+        pipelineName:
+          type: string
+          description: Pipeline name for Studio projects.
+        projectType:
+          type: string
+          description: Project type (standard, rapid, studio).
+        numReviews:
+          type: integer
+          description: Number of reviews configured.
+        numConsensus:
+          type: integer
+          description: Number of consensus attempts for Studio consensus projects.
+        pinned:
+          type: boolean
+          description: Whether the project is pinned.
+        archived:
+          type: boolean
+          description: Whether the project is archived.
+        param_history:
+          type: array
+          description: Parameter version history.
+          items:
+            $ref: '#/components/schemas/ParamHistory'
+
+    ParamHistory:
+      type: object
+      properties:
+        instruction:
+          type: string
+          description: Task instruction text.
+        version:
+          type: integer
+          description: Parameter version number.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when this version was created.
+
+    CreateProjectRequest:
+      type: object
+      required:
+        - type
+        - name
+      properties:
+        type:
+          type: string
+          description: "Task type: imageannotation, textcollection, namedentityrecognition, etc."
+          enum:
+            - imageannotation
+            - videoannotation
+            - textcollection
+            - namedentityrecognition
+            - documenttranscription
+            - categorization
+            - comparison
+            - datacollection
+            - audiotranscription
+            - lidarsegmentation
+            - lidartopdown
+            - pointannotation
+            - segmentannotation
+            - lineannotation
+            - polyannotation
+            - cuboidannotation
+        name:
+          type: string
+          description: Unique project name identifier.
+        rapid:
+          type: boolean
+          description: Whether this is a Scale Rapid project.
+        studio:
+          type: boolean
+          description: Whether this is a Scale Studio project.
+        params:
+          type: object
+          description: Default task parameters for this project.
+          additionalProperties: true
+        pipeline:
+          type: string
+          description: Pipeline type for Studio projects.
+          enum:
+            - standard_task
+            - consensus_task
+        consensus_attempts:
+          type: integer
+          description: Number of consensus attempts (Studio consensus projects only).
+
+    UpdateProjectParamsRequest:
+      type: object
+      properties:
+        patch:
+          type: boolean
+          description: If true, merge with existing params instead of replacing.
+        instruction:
+          type: string
+          description: Instruction text to append to task instructions.
+
+    # ─── Batch ───
+    Batch:
+      type: object
+      properties:
+        project:
+          type: string
+          description: Project name this batch belongs to.
+        name:
+          type: string
+          description: Unique batch name identifier.
+        callback:
+          type: string
+          description: Webhook URL or email for batch completion notification.
+        status:
+          type: string
+          description: Current batch status.
+          enum:
+            - staging
+            - in_progress
+            - completed
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of batch creation.
+        metadata:
+          type: object
+          description: Additional metadata.
+          additionalProperties: true
+
+    CreateBatchRequest:
+      type: object
+      required:
+        - project
+        - name
+      properties:
+        project:
+          type: string
+          description: Project name to create this batch in.
+        name:
+          type: string
+          description: Unique batch name identifier.
+        callback:
+          type: string
+          description: Webhook URL or email for batch completion notification.
+        calibration_batch:
+          type: boolean
+          description: Whether this is a calibration batch (Rapid projects).
+        self_label_batch:
+          type: boolean
+          description: Whether this is a self-label batch (Rapid projects).
+
+    BatchStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Current batch status.
+          enum:
+            - staging
+            - in_progress
+            - completed
+        tasks_pending:
+          type: integer
+          description: Number of pending tasks.
+        tasks_completed:
+          type: integer
+          description: Number of completed tasks.
+
+    BatchPrioritizeRequest:
+      type: object
+      required:
+        - priority
+      properties:
+        priority:
+          type: integer
+          description: Priority value between 10 (lowest) and 30 (highest).
+          minimum: 10
+          maximum: 30
+
+    BatchListResponse:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+        total:
+          type: integer
+          description: Total number of batches.
+        limit:
+          type: integer
+        offset:
+          type: integer
+        has_more:
+          type: boolean
+
+    # ─── Task ───
+    Task:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Unique task identifier.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of task creation.
+        completed_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of task completion.
+        type:
+          type: string
+          description: Task type.
+        status:
+          type: string
+          description: Current task status.
+          enum:
+            - pending
+            - completed
+            - canceled
+            - error
+        instruction:
+          type: string
+          description: Task instruction text.
+        callback_url:
+          type: string
+          description: Webhook URL for task completion notification.
+        params:
+          type: object
+          description: Task-specific parameters.
+          additionalProperties: true
+        response:
+          type: object
+          description: Task response/result from the labeler.
+          additionalProperties: true
+        metadata:
+          type: object
+          description: Custom metadata key-value pairs.
+          additionalProperties: true
+        unique_id:
+          type: string
+          description: Unique identifier for duplicate prevention.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags associated with this task.
+        customer_review_status:
+          type: string
+          description: Customer review status.
+          enum:
+            - accepted
+            - fixed
+            - commented
+            - rejected
+
+    CreateTaskRequest:
+      type: object
+      required:
+        - project
+      properties:
+        project:
+          type: string
+          description: Project name to create this task in.
+        batch:
+          type: string
+          description: Batch name to assign this task to.
+        instruction:
+          type: string
+          description: Task instruction text (markdown-enabled).
+        callback_url:
+          type: string
+          description: Webhook URL for task completion notification.
+        attachment:
+          type: string
+          description: URL of the attachment (image, video, etc.) to be labeled.
+        attachment_type:
+          type: string
+          description: Type of attachment.
+          enum:
+            - image
+            - video
+            - text
+            - pdf
+            - website
+        metadata:
+          type: object
+          description: Custom metadata key-value pairs.
+          additionalProperties: true
+        unique_id:
+          type: string
+          description: Unique identifier for duplicate prevention.
+        clear_unique_id_on_error:
+          type: boolean
+          description: Automatically clear unique_id if task errors.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags to associate with this task.
+        priority:
+          type: integer
+          description: Task priority.
+
+    TaskListResponse:
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        total:
+          type: integer
+          description: Total number of matching tasks.
+        limit:
+          type: integer
+        has_more:
+          type: boolean
+        next_token:
+          type: string
+          description: Pagination token for next page.
+
+    SetMetadataRequest:
+      type: object
+      additionalProperties: true
+      description: Key-value pairs to set as task metadata.
+
+    UpdateUniqueIdRequest:
+      type: object
+      required:
+        - unique_id
+      properties:
+        unique_id:
+          type: string
+          description: New unique_id value.
+
+    TagsRequest:
+      type: array
+      items:
+        type: string
+      description: Array of tag strings.
+
+    # ─── File ───
+    FileUploadResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: File identifier.
+        name:
+          type: string
+          description: File display name.
+        file_url:
+          type: string
+          description: URL of the uploaded file.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of upload.
+
+    # ─── Studio ───
+    TeamMember:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Team member email address.
+        firstName:
+          type: string
+          description: First name.
+        lastName:
+          type: string
+          description: Last name.
+        company:
+          type: string
+          description: Company name.
+        role:
+          type: string
+          description: Team role.
+          enum:
+            - labeler
+            - member
+            - manager
+        isStudioLabeler:
+          type: boolean
+          description: Whether the member is a Studio labeler.
+        disableRapidEmails:
+          type: boolean
+          description: Whether rapid emails are disabled.
+
+    InviteTeamRequest:
+      type: object
+      required:
+        - emails
+        - team_role
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+          description: Email addresses to invite.
+        team_role:
+          type: string
+          description: Role to assign.
+          enum:
+            - labeler
+            - member
+            - manager
+
+    SetRoleRequest:
+      type: object
+      required:
+        - emails
+        - team_role
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+          description: Email addresses to update.
+        team_role:
+          type: string
+          description: New role to assign.
+          enum:
+            - labeler
+            - member
+            - manager
+
+    AssignTeamRequest:
+      type: object
+      required:
+        - emails
+        - projects
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+          description: Email addresses of teammates.
+        projects:
+          type: array
+          items:
+            type: string
+          description: Project names to assign to.
+
+    UnassignTeamRequest:
+      type: object
+      required:
+        - emails
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+          description: Email addresses of teammates.
+        projects:
+          type: array
+          items:
+            type: string
+          description: Project names to unassign from.
+
+    # ─── GenAI ───
+    TextCollectionField:
+      type: object
+      required:
+        - field_id
+        - type
+        - title
+      properties:
+        field_id:
+          type: string
+          description: Unique field identifier.
+        type:
+          type: string
+          description: Field type.
+          enum:
+            - text
+            - category
+            - number
+        title:
+          type: string
+          description: Field title.
+        description:
+          type: string
+          description: Field description.
+        choices:
+          type: array
+          items:
+            type: string
+          description: Choices for category-type fields.
+
+    TextCollectionAttachment:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Attachment type.
+          enum:
+            - text
+            - image
+            - website
+            - pdf
+            - video
+        content:
+          type: string
+          description: Attachment content (text or URL).
+
+    CreateTextCollectionTaskRequest:
+      type: object
+      required:
+        - instruction
+        - fields
+      properties:
+        project:
+          type: string
+          description: Project name.
+        batch:
+          type: string
+          description: Batch name.
+        instruction:
+          type: string
+          description: Task instruction text (markdown-enabled).
+        callback_url:
+          type: string
+          description: Webhook URL for task completion notification.
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextCollectionField'
+          description: Array of fields for data collection.
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextCollectionAttachment'
+          description: Attachments for context.
+        title:
+          type: string
+          description: Task title.
+        description:
+          type: string
+          description: Task description.
+        responses_required:
+          type: integer
+          description: Number of responses required.
+        priority:
+          type: integer
+          description: Task priority.
+        unique_id:
+          type: string
+          description: Unique identifier for duplicate prevention.
+        clear_unique_id_on_error:
+          type: boolean
+          description: Automatically clear unique_id on error.
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags for this task.
+
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: Result status message.
+
+    ErrorResponse:
+      type: object
+      properties:
+        status_code:
+          type: integer
+          description: HTTP status code.
+        error:
+          type: string
+          description: Error message.
+
+paths:
+  # ─── Projects ───
+  /projects:
+    get:
+      operationId: listProjects
+      summary: List all projects
+      description: Returns a list of all projects in your account.
+      parameters:
+        - name: archived
+          in: query
+          description: Filter by archive status.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of projects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      operationId: createProject
+      summary: Create a project
+      description: Create a new project for organizing tasks and batches.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '200':
+          description: Created project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+  /projects/{projectName}:
+    get:
+      operationId: getProject
+      summary: Retrieve a project
+      description: Get details of a specific project by name.
+      parameters:
+        - name: projectName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project name.
+      responses:
+        '200':
+          description: Project details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+  /projects/{projectName}/setParams:
+    post:
+      operationId: updateProjectParams
+      summary: Update project parameters
+      description: Update default parameters for a project. Creates a new version in param_history.
+      parameters:
+        - name: projectName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectParamsRequest'
+      responses:
+        '200':
+          description: Updated project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+
+  # ─── Batches ───
+  /batches:
+    get:
+      operationId: listBatches
+      summary: List all batches
+      description: Returns a paginated list of all batches, optionally filtered by project or status.
+      parameters:
+        - name: project
+          in: query
+          description: Filter by project name.
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by batch status.
+          schema:
+            type: string
+            enum:
+              - staging
+              - in_progress
+              - completed
+        - name: detailed
+          in: query
+          description: Include progress details.
+          schema:
+            type: boolean
+        - name: start_time
+          in: query
+          description: Minimum created_at value (ISO 8601).
+          schema:
+            type: string
+            format: date-time
+        - name: end_time
+          in: query
+          description: Maximum created_at value (ISO 8601).
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: Number of results per page.
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Number of results to skip.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of batches.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchListResponse'
+    post:
+      operationId: createBatch
+      summary: Create a batch
+      description: Create a new batch within a project for grouping tasks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBatchRequest'
+      responses:
+        '200':
+          description: Created batch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+
+  /batches/{batchName}:
+    get:
+      operationId: getBatch
+      summary: Retrieve a batch
+      description: Get details of a specific batch by name.
+      parameters:
+        - name: batchName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Batch name.
+      responses:
+        '200':
+          description: Batch details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+
+  /batches/{batchName}/status:
+    get:
+      operationId: getBatchStatus
+      summary: Get batch status
+      description: Get the status of a batch with task counts grouped by status.
+      parameters:
+        - name: batchName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Batch name.
+      responses:
+        '200':
+          description: Batch status with task counts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchStatus'
+
+  /batches/{batchName}/finalize:
+    post:
+      operationId: finalizeBatch
+      summary: Finalize a batch
+      description: Finalize a batch to indicate no more tasks will be added and begin processing.
+      parameters:
+        - name: batchName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Batch name.
+      responses:
+        '200':
+          description: Finalized batch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+
+  /batches/{batchName}/prioritize:
+    post:
+      operationId: prioritizeBatch
+      summary: Set batch priority
+      description: Set the priority of a batch. Higher priority batches are processed first.
+      parameters:
+        - name: batchName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Batch name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchPrioritizeRequest'
+      responses:
+        '200':
+          description: Success response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+
+  # ─── Tasks ───
+  /task:
+    post:
+      operationId: createTask
+      summary: Create a task
+      description: Create a new labeling task. Each task represents an individual unit of work for a labeler.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '200':
+          description: Created task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /tasks:
+    get:
+      operationId: listTasks
+      summary: List tasks
+      description: Returns a paginated list of tasks with optional filtering by project, batch, status, and time range.
+      parameters:
+        - name: project
+          in: query
+          description: Filter by project name.
+          schema:
+            type: string
+        - name: batch
+          in: query
+          description: Filter by batch name.
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by task status.
+          schema:
+            type: string
+            enum:
+              - pending
+              - completed
+              - canceled
+        - name: type
+          in: query
+          description: Filter by task type.
+          schema:
+            type: string
+        - name: start_time
+          in: query
+          description: Minimum created_at value (ISO 8601).
+          schema:
+            type: string
+            format: date-time
+        - name: end_time
+          in: query
+          description: Maximum created_at value (ISO 8601).
+          schema:
+            type: string
+            format: date-time
+        - name: completed_after
+          in: query
+          description: Filter tasks completed after this time.
+          schema:
+            type: string
+            format: date-time
+        - name: completed_before
+          in: query
+          description: Filter tasks completed before this time.
+          schema:
+            type: string
+            format: date-time
+        - name: customer_review_status
+          in: query
+          description: Filter by customer review status.
+          schema:
+            type: string
+            enum:
+              - accepted
+              - fixed
+              - commented
+              - rejected
+        - name: limit
+          in: query
+          description: Number of results per page (1-100, default 100).
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: unique_id
+          in: query
+          description: Filter by unique_id.
+          schema:
+            type: string
+        - name: tags
+          in: query
+          description: Filter by tags (comma-separated).
+          schema:
+            type: string
+        - name: include_attachment_url
+          in: query
+          description: Include attachment URL in response.
+          schema:
+            type: boolean
+        - name: next_token
+          in: query
+          description: Pagination token for next page.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of tasks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListResponse'
+
+  /task/{taskId}:
+    get:
+      operationId: getTask
+      summary: Retrieve a task
+      description: Get details of a specific task by ID.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+      responses:
+        '200':
+          description: Task details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /task/{taskId}/cancel:
+    post:
+      operationId: cancelTask
+      summary: Cancel a task
+      description: Cancel a pending task. Completed tasks cannot be canceled.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+        - name: clear_unique_id
+          in: query
+          description: Clear the unique_id when canceling.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Canceled task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /task/{taskId}/setMetadata:
+    post:
+      operationId: setTaskMetadata
+      summary: Set task metadata
+      description: Set custom key-value metadata on a task.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetMetadataRequest'
+      responses:
+        '200':
+          description: Updated task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /task/{taskId}/unique_id:
+    post:
+      operationId: updateTaskUniqueId
+      summary: Update task unique_id
+      description: Update the unique_id of a task.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUniqueIdRequest'
+      responses:
+        '200':
+          description: Updated task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      operationId: deleteTaskUniqueId
+      summary: Delete task unique_id
+      description: Remove the unique_id from a task.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+      responses:
+        '200':
+          description: Updated task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /task/{taskId}/tags:
+    post:
+      operationId: addTaskTags
+      summary: Add tags to a task
+      description: Add tags to a task. Tags are used for organizing and filtering tasks.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagsRequest'
+      responses:
+        '200':
+          description: Updated task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      operationId: deleteTaskTags
+      summary: Remove tags from a task
+      description: Remove specific tags from a task.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Task ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagsRequest'
+      responses:
+        '200':
+          description: Updated task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  # ─── GenAI Text Collection ───
+  /task/textcollection:
+    post:
+      operationId: createTextCollectionTask
+      summary: Create a text collection task
+      description: Create a GenAI text collection task for data collection, RLHF, or evaluation workflows.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTextCollectionTaskRequest'
+      responses:
+        '200':
+          description: Created text collection task.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  # ─── Files ───
+  /files/upload:
+    post:
+      operationId: uploadFile
+      summary: Upload a file
+      description: Upload a local file for use as task attachments.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+                display_name:
+                  type: string
+                  description: Human-readable file name.
+                project_name:
+                  type: string
+                  description: Project to associate the file with.
+                reference_id:
+                  type: string
+                  description: Unique upload identifier for idempotency.
+                metadata:
+                  type: string
+                  description: JSON string of additional metadata.
+      responses:
+        '200':
+          description: Uploaded file details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileUploadResponse'
+
+  /files/import:
+    post:
+      operationId: importFile
+      summary: Import a file from URL
+      description: Import a file from a URL for use as task attachments.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - file_url
+              properties:
+                file_url:
+                  type: string
+                  description: URL of the file to import.
+                project_name:
+                  type: string
+                  description: Project to associate the file with.
+      responses:
+        '200':
+          description: Imported file details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileUploadResponse'
+
+  # ─── Studio Teams ───
+  /teams:
+    get:
+      operationId: listTeamMembers
+      summary: List all teammates
+      description: Get a list of all team members in your Scale account.
+      responses:
+        '200':
+          description: List of team members.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMember'
+
+  /teams/invite:
+    post:
+      operationId: inviteTeamMembers
+      summary: Invite teammates
+      description: Invite new teammates to your Scale account by email.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteTeamRequest'
+      responses:
+        '200':
+          description: Invited team members.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMember'
+
+  /teams/set_role:
+    post:
+      operationId: updateTeamRole
+      summary: Update teammate role
+      description: Update the role of existing team members.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetRoleRequest'
+      responses:
+        '200':
+          description: Updated team members.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMember'
+
+  # ─── Studio Assignments ───
+  /studio/assignments:
+    get:
+      operationId: listAssignments
+      summary: List all assignments
+      description: Get a list of all Studio project assignments.
+      responses:
+        '200':
+          description: List of assignments.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /studio/assignments/add:
+    post:
+      operationId: assignTeammates
+      summary: Assign teammates to projects
+      description: Assign team members to Studio projects.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignTeamRequest'
+      responses:
+        '200':
+          description: Updated assignments.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /studio/assignments/remove:
+    post:
+      operationId: unassignTeammates
+      summary: Unassign teammates from projects
+      description: Remove team members from Studio project assignments.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnassignTeamRequest'
+      responses:
+        '200':
+          description: Updated assignments.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  # ─── Studio Batches ───
+  /studio/batches:
+    get:
+      operationId: listStudioBatches
+      summary: List Studio batches
+      description: Get a list of all Studio batches.
+      responses:
+        '200':
+          description: List of Studio batches.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /studio/batches/set_priorities:
+    post:
+      operationId: setStudioBatchPriorities
+      summary: Set Studio batch priorities
+      description: Set the priorities of Studio batches.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /studio/batches/reset_priorities:
+    post:
+      operationId: resetStudioBatchPriorities
+      summary: Reset Studio batch priorities
+      description: Reset all Studio batch priorities to defaults.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  # ─── Studio Projects ───
+  /studio/projects/{projectName}/groups:
+    get:
+      operationId: listProjectGroups
+      summary: List project groups
+      description: Get a list of all groups within a Studio project.
+      parameters:
+        - name: projectName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project name.
+      responses:
+        '200':
+          description: List of project groups.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+    post:
+      operationId: createProjectGroup
+      summary: Create a project group
+      description: Create a new group within a Studio project.
+      parameters:
+        - name: projectName
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Project name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Created group.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /quality/labelers:
+    get:
+      operationId: listTrainingAttempts
+      summary: List training attempts
+      description: Get a list of labeler training attempts for quality management.
+      parameters:
+        - name: quality_task_ids
+          in: query
+          description: Filter by quality task IDs.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: labeler_emails
+          in: query
+          description: Filter by labeler email addresses.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: next_token
+          in: query
+          description: Pagination token.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results per page.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of training attempts.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true

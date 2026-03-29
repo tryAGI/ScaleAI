@@ -1,0 +1,51 @@
+#nullable enable
+
+namespace ScaleAI
+{
+    public partial interface IScaleAIClient
+    {
+        /// <summary>
+        /// Upload a file<br/>
+        /// Upload a local file for use as task attachments.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::ScaleAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.FileUploadResponse> UploadFileAsync(
+
+            global::ScaleAI.UploadFileRequest request,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Upload a file<br/>
+        /// Upload a local file for use as task attachments.
+        /// </summary>
+        /// <param name="file">
+        /// The file to upload.
+        /// </param>
+        /// <param name="filename">
+        /// The file to upload.
+        /// </param>
+        /// <param name="displayName">
+        /// Human-readable file name.
+        /// </param>
+        /// <param name="projectName">
+        /// Project to associate the file with.
+        /// </param>
+        /// <param name="referenceId">
+        /// Unique upload identifier for idempotency.
+        /// </param>
+        /// <param name="metadata">
+        /// JSON string of additional metadata.
+        /// </param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::System.InvalidOperationException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.FileUploadResponse> UploadFileAsync(
+            byte[] file,
+            string filename,
+            string? displayName = default,
+            string? projectName = default,
+            string? referenceId = default,
+            string? metadata = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+    }
+}
