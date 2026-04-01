@@ -185,7 +185,6 @@ namespace ScaleAI
         public async global::System.Threading.Tasks.Task<string> ResetStudioBatchPrioritiesAsync(
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new object
             {
             };

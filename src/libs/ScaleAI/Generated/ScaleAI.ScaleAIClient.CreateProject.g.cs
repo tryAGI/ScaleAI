@@ -217,7 +217,6 @@ namespace ScaleAI
             int? consensusAttempts = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::ScaleAI.CreateProjectRequest
             {
                 Type = type,

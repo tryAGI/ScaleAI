@@ -246,7 +246,6 @@ namespace ScaleAI
             string? metadata = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::ScaleAI.UploadFileRequest
             {
                 File = file,
