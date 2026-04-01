@@ -209,7 +209,6 @@ namespace ScaleAI
             bool? selfLabelBatch = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::ScaleAI.CreateBatchRequest
             {
                 Project = project,

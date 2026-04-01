@@ -201,7 +201,6 @@ namespace ScaleAI
             string uniqueId,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
-
             var __request = new global::ScaleAI.UpdateUniqueIdRequest
             {
                 UniqueId = uniqueId,
