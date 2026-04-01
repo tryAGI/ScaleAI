@@ -233,6 +233,7 @@ namespace ScaleAI
             int? priority = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::ScaleAI.CreateTaskRequest
             {
                 Project = project,

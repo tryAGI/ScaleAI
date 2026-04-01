@@ -201,6 +201,7 @@ namespace ScaleAI
             int priority,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::ScaleAI.BatchPrioritizeRequest
             {
                 Priority = priority,

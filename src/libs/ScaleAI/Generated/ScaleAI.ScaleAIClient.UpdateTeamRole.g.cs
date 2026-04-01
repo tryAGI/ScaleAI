@@ -197,6 +197,7 @@ namespace ScaleAI
             global::ScaleAI.SetRoleRequestTeamRole teamRole,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::ScaleAI.SetRoleRequest
             {
                 Emails = emails,

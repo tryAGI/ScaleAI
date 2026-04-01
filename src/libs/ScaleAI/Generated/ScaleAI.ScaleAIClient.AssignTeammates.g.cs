@@ -193,6 +193,7 @@ namespace ScaleAI
             global::System.Collections.Generic.IList<string> projects,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+
             var __request = new global::ScaleAI.AssignTeamRequest
             {
                 Emails = emails,
