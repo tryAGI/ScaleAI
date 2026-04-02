@@ -89,7 +89,7 @@ namespace ScaleAI
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.CreateProjectRequestPipeline), TypeInfoPropertyName = "CreateProjectRequestPipeline2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.UpdateProjectParamsRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.Batch))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus), TypeInfoPropertyName = "BatchStatus3")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus), TypeInfoPropertyName = "BatchStatus2_3")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.CreateBatchRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus2))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatusStatus), TypeInfoPropertyName = "BatchStatusStatus2")]
