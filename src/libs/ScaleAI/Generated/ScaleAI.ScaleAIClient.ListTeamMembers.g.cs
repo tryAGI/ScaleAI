@@ -5,6 +5,25 @@ namespace ScaleAI
 {
     public partial class ScaleAIClient
     {
+
+
+        private static readonly global::ScaleAI.EndPointSecurityRequirement s_ListTeamMembersSecurityRequirement0 =
+            new global::ScaleAI.EndPointSecurityRequirement
+            {
+                Authorizations = new global::ScaleAI.EndPointAuthorizationRequirement[]
+                {                    new global::ScaleAI.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::ScaleAI.EndPointSecurityRequirement[] s_ListTeamMembersSecurityRequirements =
+            new global::ScaleAI.EndPointSecurityRequirement[]
+            {                s_ListTeamMembersSecurityRequirement0,
+            };
         partial void PrepareListTeamMembersArguments(
             global::System.Net.Http.HttpClient httpClient);
         partial void PrepareListTeamMembersRequest(
@@ -33,9 +52,15 @@ namespace ScaleAI
             PrepareListTeamMembersArguments(
                 httpClient: HttpClient);
 
+
+            var __authorizations = global::ScaleAI.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_ListTeamMembersSecurityRequirements,
+                operationName: "ListTeamMembersAsync");
+
             var __pathBuilder = new global::ScaleAI.PathBuilder(
                 path: "/teams",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Get,
@@ -45,7 +70,7 @@ namespace ScaleAI
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")
