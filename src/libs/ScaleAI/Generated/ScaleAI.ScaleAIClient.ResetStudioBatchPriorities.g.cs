@@ -5,6 +5,25 @@ namespace ScaleAI
 {
     public partial class ScaleAIClient
     {
+
+
+        private static readonly global::ScaleAI.EndPointSecurityRequirement s_ResetStudioBatchPrioritiesSecurityRequirement0 =
+            new global::ScaleAI.EndPointSecurityRequirement
+            {
+                Authorizations = new global::ScaleAI.EndPointAuthorizationRequirement[]
+                {                    new global::ScaleAI.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::ScaleAI.EndPointSecurityRequirement[] s_ResetStudioBatchPrioritiesSecurityRequirements =
+            new global::ScaleAI.EndPointSecurityRequirement[]
+            {                s_ResetStudioBatchPrioritiesSecurityRequirement0,
+            };
         partial void PrepareResetStudioBatchPrioritiesArguments(
             global::System.Net.Http.HttpClient httpClient,
             object request);
@@ -41,9 +60,15 @@ namespace ScaleAI
                 httpClient: HttpClient,
                 request: request);
 
+
+            var __authorizations = global::ScaleAI.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_ResetStudioBatchPrioritiesSecurityRequirements,
+                operationName: "ResetStudioBatchPrioritiesAsync");
+
             var __pathBuilder = new global::ScaleAI.PathBuilder(
                 path: "/studio/batches/reset_priorities",
-                baseUri: HttpClient.BaseAddress); 
+                baseUri: HttpClient.BaseAddress);
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Post,
@@ -53,7 +78,7 @@ namespace ScaleAI
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")

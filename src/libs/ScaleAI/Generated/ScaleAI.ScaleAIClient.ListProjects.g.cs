@@ -5,6 +5,25 @@ namespace ScaleAI
 {
     public partial class ScaleAIClient
     {
+
+
+        private static readonly global::ScaleAI.EndPointSecurityRequirement s_ListProjectsSecurityRequirement0 =
+            new global::ScaleAI.EndPointSecurityRequirement
+            {
+                Authorizations = new global::ScaleAI.EndPointAuthorizationRequirement[]
+                {                    new global::ScaleAI.EndPointAuthorizationRequirement
+                    {
+                        Type = "Http",
+                        Location = "Header",
+                        Name = "Bearer",
+                        FriendlyName = "Bearer",
+                    },
+                },
+            };
+        private static readonly global::ScaleAI.EndPointSecurityRequirement[] s_ListProjectsSecurityRequirements =
+            new global::ScaleAI.EndPointSecurityRequirement[]
+            {                s_ListProjectsSecurityRequirement0,
+            };
         partial void PrepareListProjectsArguments(
             global::System.Net.Http.HttpClient httpClient,
             ref bool? archived);
@@ -38,12 +57,18 @@ namespace ScaleAI
                 httpClient: HttpClient,
                 archived: ref archived);
 
+
+            var __authorizations = global::ScaleAI.EndPointSecurityResolver.ResolveAuthorizations(
+                availableAuthorizations: Authorizations,
+                securityRequirements: s_ListProjectsSecurityRequirements,
+                operationName: "ListProjectsAsync");
+
             var __pathBuilder = new global::ScaleAI.PathBuilder(
                 path: "/projects",
                 baseUri: HttpClient.BaseAddress); 
             __pathBuilder
                 .AddOptionalParameter("archived", archived?.ToString().ToLowerInvariant()) 
-                ; 
+                ;
             var __path = __pathBuilder.ToString();
             using var __httpRequest = new global::System.Net.Http.HttpRequestMessage(
                 method: global::System.Net.Http.HttpMethod.Get,
@@ -53,7 +78,7 @@ namespace ScaleAI
             __httpRequest.VersionPolicy = global::System.Net.Http.HttpVersionPolicy.RequestVersionOrHigher;
 #endif
 
-            foreach (var __authorization in Authorizations)
+            foreach (var __authorization in __authorizations)
             {
                 if (__authorization.Type == "Http" ||
                     __authorization.Type == "OAuth2")
