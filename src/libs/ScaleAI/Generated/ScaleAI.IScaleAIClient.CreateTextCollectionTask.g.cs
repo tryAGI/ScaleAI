@@ -9,11 +9,13 @@ namespace ScaleAI
         /// Create a GenAI text collection task for data collection, RLHF, or evaluation workflows.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Task> CreateTextCollectionTaskAsync(
 
             global::ScaleAI.CreateTextCollectionTaskRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create a text collection task<br/>
@@ -58,6 +60,7 @@ namespace ScaleAI
         /// <param name="tags">
         /// Tags for this task.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Task> CreateTextCollectionTaskAsync(
@@ -74,6 +77,7 @@ namespace ScaleAI
             string? uniqueId = default,
             bool? clearUniqueIdOnError = default,
             global::System.Collections.Generic.IList<string>? tags = default,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

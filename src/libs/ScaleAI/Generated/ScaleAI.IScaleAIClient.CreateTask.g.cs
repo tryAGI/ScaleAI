@@ -9,11 +9,13 @@ namespace ScaleAI
         /// Create a new labeling task. Each task represents an individual unit of work for a labeler.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Task> CreateTaskAsync(
 
             global::ScaleAI.CreateTaskRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create a task<br/>
@@ -52,6 +54,7 @@ namespace ScaleAI
         /// <param name="priority">
         /// Task priority.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Task> CreateTaskAsync(
@@ -66,6 +69,7 @@ namespace ScaleAI
             bool? clearUniqueIdOnError = default,
             global::System.Collections.Generic.IList<string>? tags = default,
             int? priority = default,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

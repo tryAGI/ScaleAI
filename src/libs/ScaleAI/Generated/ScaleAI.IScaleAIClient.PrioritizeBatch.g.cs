@@ -10,12 +10,14 @@ namespace ScaleAI
         /// </summary>
         /// <param name="batchName"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.SuccessResponse> PrioritizeBatchAsync(
             string batchName,
 
             global::ScaleAI.BatchPrioritizeRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Set batch priority<br/>
@@ -25,11 +27,13 @@ namespace ScaleAI
         /// <param name="priority">
         /// Priority value between 10 (lowest) and 30 (highest).
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.SuccessResponse> PrioritizeBatchAsync(
             string batchName,
             int priority,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

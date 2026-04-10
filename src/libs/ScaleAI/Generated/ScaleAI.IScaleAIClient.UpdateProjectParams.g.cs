@@ -10,12 +10,14 @@ namespace ScaleAI
         /// </summary>
         /// <param name="projectName"></param>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Project> UpdateProjectParamsAsync(
             string projectName,
 
             global::ScaleAI.UpdateProjectParamsRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Update project parameters<br/>
@@ -28,12 +30,14 @@ namespace ScaleAI
         /// <param name="instruction">
         /// Instruction text to append to task instructions.
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Project> UpdateProjectParamsAsync(
             string projectName,
             bool? patch = default,
             string? instruction = default,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
