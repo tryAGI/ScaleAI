@@ -22,6 +22,7 @@ namespace ScaleAI
         /// <param name="tags"></param>
         /// <param name="includeAttachmentUrl"></param>
         /// <param name="nextToken"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.TaskListResponse> ListTasksAsync(
@@ -39,6 +40,7 @@ namespace ScaleAI
             string? tags = default,
             bool? includeAttachmentUrl = default,
             string? nextToken = default,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }

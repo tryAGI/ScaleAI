@@ -9,11 +9,13 @@ namespace ScaleAI
         /// Create a new project for organizing tasks and batches.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Project> CreateProjectAsync(
 
             global::ScaleAI.CreateProjectRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Create a project<br/>
@@ -40,6 +42,7 @@ namespace ScaleAI
         /// <param name="consensusAttempts">
         /// Number of consensus attempts (Studio consensus projects only).
         /// </param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         global::System.Threading.Tasks.Task<global::ScaleAI.Project> CreateProjectAsync(
@@ -50,6 +53,7 @@ namespace ScaleAI
             object? @params = default,
             global::ScaleAI.CreateProjectRequestPipeline? pipeline = default,
             int? consensusAttempts = default,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
