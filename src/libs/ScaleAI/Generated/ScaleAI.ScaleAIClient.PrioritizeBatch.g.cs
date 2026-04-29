@@ -139,7 +139,7 @@ namespace ScaleAI
                 PreparePrioritizeBatchRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    batchName: batchName,
+                    batchName: batchName!,
                     request: request);
 
                 return __httpRequest;

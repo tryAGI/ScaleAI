@@ -125,7 +125,7 @@ namespace ScaleAI
                 PrepareDeleteTaskUniqueIdRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    taskId: taskId);
+                    taskId: taskId!);
 
                 return __httpRequest;
             }

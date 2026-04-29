@@ -139,7 +139,7 @@ namespace ScaleAI
                 PrepareUpdateProjectParamsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    projectName: projectName,
+                    projectName: projectName!,
                     request: request);
 
                 return __httpRequest;

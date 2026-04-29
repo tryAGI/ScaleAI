@@ -125,7 +125,7 @@ namespace ScaleAI
                 PrepareGetBatchStatusRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    batchName: batchName);
+                    batchName: batchName!);
 
                 return __httpRequest;
             }
