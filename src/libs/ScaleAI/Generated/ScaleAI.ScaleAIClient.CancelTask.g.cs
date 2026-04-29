@@ -133,7 +133,7 @@ namespace ScaleAI
                 PrepareCancelTaskRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    taskId: taskId,
+                    taskId: taskId!,
                     clearUniqueId: clearUniqueId);
 
                 return __httpRequest;

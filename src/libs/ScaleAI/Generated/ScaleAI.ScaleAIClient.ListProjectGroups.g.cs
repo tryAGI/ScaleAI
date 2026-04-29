@@ -125,7 +125,7 @@ namespace ScaleAI
                 PrepareListProjectGroupsRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    projectName: projectName);
+                    projectName: projectName!);
 
                 return __httpRequest;
             }
