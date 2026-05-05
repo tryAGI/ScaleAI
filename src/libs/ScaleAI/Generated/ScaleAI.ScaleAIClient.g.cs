@@ -75,10 +75,10 @@ namespace ScaleAI
         /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
         /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public ScaleAIClient(
-            global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::ScaleAI.EndPointAuthorization>? authorizations = null,
-            global::ScaleAI.AutoSDKClientOptions? options = null,
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Uri? baseUri,
+            global::System.Collections.Generic.List<global::ScaleAI.EndPointAuthorization>? authorizations,
+            global::ScaleAI.AutoSDKClientOptions? options,
             bool disposeHttpClient = true)
         {
 

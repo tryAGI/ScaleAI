@@ -19,5 +19,20 @@ namespace ScaleAI
             global::System.Collections.Generic.IList<string> request,
             global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Remove tags from a task<br/>
+        /// Remove specific tags from a task.
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::ScaleAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.Task>> DeleteTaskTagsAsResponseAsync(
+            string taskId,
+
+            global::System.Collections.Generic.IList<string> request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
