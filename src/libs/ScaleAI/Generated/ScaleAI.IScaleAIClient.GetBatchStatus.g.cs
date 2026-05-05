@@ -16,5 +16,17 @@ namespace ScaleAI
             string batchName,
             global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Get batch status<br/>
+        /// Get the status of a batch with task counts grouped by status.
+        /// </summary>
+        /// <param name="batchName"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::ScaleAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus2>> GetBatchStatusAsResponseAsync(
+            string batchName,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
     }
 }
