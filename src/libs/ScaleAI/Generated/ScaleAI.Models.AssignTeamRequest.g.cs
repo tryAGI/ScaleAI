@@ -54,5 +54,6 @@ namespace ScaleAI
         public AssignTeamRequest()
         {
         }
+
     }
 }

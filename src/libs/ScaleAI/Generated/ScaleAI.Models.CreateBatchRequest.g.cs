@@ -87,5 +87,6 @@ namespace ScaleAI
         public CreateBatchRequest()
         {
         }
+
     }
 }

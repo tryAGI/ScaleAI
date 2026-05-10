@@ -79,5 +79,6 @@ namespace ScaleAI
         public TaskListResponse()
         {
         }
+
     }
 }
