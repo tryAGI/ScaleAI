@@ -42,5 +42,6 @@ namespace ScaleAI
         public BatchPrioritizeRequest()
         {
         }
+
     }
 }

@@ -77,5 +77,6 @@ namespace ScaleAI
         public BatchListResponse()
         {
         }
+
     }
 }

@@ -89,5 +89,6 @@ namespace ScaleAI
         public TextCollectionField()
         {
         }
+
     }
 }

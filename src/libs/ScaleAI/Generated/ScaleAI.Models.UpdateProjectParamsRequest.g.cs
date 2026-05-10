@@ -52,5 +52,6 @@ namespace ScaleAI
         public UpdateProjectParamsRequest()
         {
         }
+
     }
 }

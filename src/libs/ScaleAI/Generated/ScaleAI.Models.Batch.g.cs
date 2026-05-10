@@ -97,5 +97,6 @@ namespace ScaleAI
         public Batch()
         {
         }
+
     }
 }

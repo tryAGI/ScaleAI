@@ -41,5 +41,6 @@ namespace ScaleAI
         public SuccessResponse()
         {
         }
+
     }
 }

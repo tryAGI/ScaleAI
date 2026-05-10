@@ -64,5 +64,6 @@ namespace ScaleAI
         public BatchStatus2()
         {
         }
+
     }
 }

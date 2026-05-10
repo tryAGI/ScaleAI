@@ -98,5 +98,6 @@ namespace ScaleAI
         public UploadFileRequest()
         {
         }
+
     }
 }
