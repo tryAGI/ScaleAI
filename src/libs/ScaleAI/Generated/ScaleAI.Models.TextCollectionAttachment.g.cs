@@ -53,5 +53,6 @@ namespace ScaleAI
         public TextCollectionAttachment()
         {
         }
+
     }
 }

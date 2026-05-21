@@ -153,5 +153,6 @@ namespace ScaleAI
         public CreateTaskRequest()
         {
         }
+
     }
 }

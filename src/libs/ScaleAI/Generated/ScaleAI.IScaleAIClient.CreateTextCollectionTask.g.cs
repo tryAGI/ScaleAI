@@ -21,6 +21,19 @@ namespace ScaleAI
         /// Create a text collection task<br/>
         /// Create a GenAI text collection task for data collection, RLHF, or evaluation workflows.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::ScaleAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.Task>> CreateTextCollectionTaskAsResponseAsync(
+
+            global::ScaleAI.CreateTextCollectionTaskRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create a text collection task<br/>
+        /// Create a GenAI text collection task for data collection, RLHF, or evaluation workflows.
+        /// </summary>
         /// <param name="project">
         /// Project name.
         /// </param>

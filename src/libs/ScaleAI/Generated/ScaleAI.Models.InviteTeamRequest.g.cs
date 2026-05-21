@@ -55,5 +55,6 @@ namespace ScaleAI
         public InviteTeamRequest()
         {
         }
+
     }
 }

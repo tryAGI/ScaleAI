@@ -24,6 +24,21 @@ namespace ScaleAI
         /// Update default parameters for a project. Creates a new version in param_history.
         /// </summary>
         /// <param name="projectName"></param>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::ScaleAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.Project>> UpdateProjectParamsAsResponseAsync(
+            string projectName,
+
+            global::ScaleAI.UpdateProjectParamsRequest request,
+            global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Update project parameters<br/>
+        /// Update default parameters for a project. Creates a new version in param_history.
+        /// </summary>
+        /// <param name="projectName"></param>
         /// <param name="patch">
         /// If true, merge with existing params instead of replacing.
         /// </param>
