@@ -9,27 +9,27 @@ namespace ScaleAI
     public enum CreateProjectRequestType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Audiotranscription,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Categorization,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Comparison,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Cuboidannotation,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Datacollection,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Documenttranscription,
         /// <summary>
@@ -37,15 +37,15 @@ namespace ScaleAI
         /// </summary>
         Imageannotation,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lidarsegmentation,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lidartopdown,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Lineannotation,
         /// <summary>
@@ -53,15 +53,15 @@ namespace ScaleAI
         /// </summary>
         Namedentityrecognition,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pointannotation,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Polyannotation,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Segmentannotation,
         /// <summary>
@@ -69,7 +69,7 @@ namespace ScaleAI
         /// </summary>
         Textcollection,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Videoannotation,
     }

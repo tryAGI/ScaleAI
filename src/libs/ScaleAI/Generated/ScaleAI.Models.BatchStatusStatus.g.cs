@@ -9,15 +9,15 @@ namespace ScaleAI
     public enum BatchStatusStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Completed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InProgress,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Staging,
     }

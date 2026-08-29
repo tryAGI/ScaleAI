@@ -4,24 +4,24 @@
 namespace ScaleAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListTasksCustomerReviewStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Accepted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Commented,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fixed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Rejected,
     }

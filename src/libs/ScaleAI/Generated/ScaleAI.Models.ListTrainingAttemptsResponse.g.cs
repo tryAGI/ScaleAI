@@ -4,7 +4,7 @@
 namespace ScaleAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ListTrainingAttemptsResponse
     {

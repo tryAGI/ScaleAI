@@ -9,11 +9,11 @@ namespace ScaleAI
     public enum CreateProjectRequestPipeline
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ConsensusTask,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         StandardTask,
     }

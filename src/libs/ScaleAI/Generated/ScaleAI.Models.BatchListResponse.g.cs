@@ -4,12 +4,12 @@
 namespace ScaleAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class BatchListResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("docs")]
         public global::System.Collections.Generic.IList<global::ScaleAI.Batch>? Docs { get; set; }
@@ -21,19 +21,19 @@ namespace ScaleAI
         public int? Total { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("limit")]
         public int? Limit { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("offset")]
         public int? Offset { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("has_more")]
         public bool? HasMore { get; set; }

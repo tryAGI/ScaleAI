@@ -4,20 +4,20 @@
 namespace ScaleAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListBatchesStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Completed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         InProgress,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Staging,
     }

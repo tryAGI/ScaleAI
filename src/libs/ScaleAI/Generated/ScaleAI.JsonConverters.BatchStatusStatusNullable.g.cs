@@ -20,7 +20,7 @@ namespace ScaleAI.JsonConverters
                     {
                         return global::ScaleAI.BatchStatusStatusExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

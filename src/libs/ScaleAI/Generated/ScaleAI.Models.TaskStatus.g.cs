@@ -9,19 +9,19 @@ namespace ScaleAI
     public enum TaskStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Canceled,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Completed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Error,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pending,
     }

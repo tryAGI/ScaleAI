@@ -4,20 +4,20 @@
 namespace ScaleAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ListTasksStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Canceled,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Completed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pending,
     }

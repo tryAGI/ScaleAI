@@ -9,15 +9,15 @@ namespace ScaleAI
     public enum SetRoleRequestTeamRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Labeler,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Manager,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Member,
     }
