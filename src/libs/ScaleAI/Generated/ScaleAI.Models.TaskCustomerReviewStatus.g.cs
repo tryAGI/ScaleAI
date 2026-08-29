@@ -9,19 +9,19 @@ namespace ScaleAI
     public enum TaskCustomerReviewStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Accepted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Commented,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fixed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Rejected,
     }

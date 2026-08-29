@@ -9,15 +9,15 @@ namespace ScaleAI
     public enum TextCollectionFieldType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Category,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Number,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Text,
     }

@@ -9,15 +9,15 @@ namespace ScaleAI
     public enum InviteTeamRequestTeamRole
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Labeler,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Manager,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Member,
     }
