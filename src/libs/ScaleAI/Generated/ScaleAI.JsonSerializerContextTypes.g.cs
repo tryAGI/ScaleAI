@@ -90,7 +90,7 @@ namespace ScaleAI
         /// <summary>
         ///
         /// </summary>
-        public global::ScaleAI.BatchStatus? Type13 { get; set; }
+        public global::ScaleAI.BatchStatus2? Type13 { get; set; }
         /// <summary>
         ///
         /// </summary>
@@ -98,7 +98,7 @@ namespace ScaleAI
         /// <summary>
         ///
         /// </summary>
-        public global::ScaleAI.BatchStatus2? Type15 { get; set; }
+        public global::ScaleAI.BatchStatus? Type15 { get; set; }
         /// <summary>
         ///
         /// </summary>

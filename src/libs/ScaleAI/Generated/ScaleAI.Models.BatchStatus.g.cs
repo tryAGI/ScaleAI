@@ -4,54 +4,66 @@
 namespace ScaleAI
 {
     /// <summary>
-    /// Current batch status.
+    ///
     /// </summary>
-    public enum BatchStatus
+    public sealed partial class BatchStatus
     {
         /// <summary>
-        ///
+        /// Current batch status.
         /// </summary>
-        Completed,
-        /// <summary>
-        ///
-        /// </summary>
-        InProgress,
-        /// <summary>
-        ///
-        /// </summary>
-        Staging,
-    }
+        [global::System.Text.Json.Serialization.JsonPropertyName("status")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::ScaleAI.JsonConverters.BatchStatusStatusJsonConverter))]
+        public global::ScaleAI.BatchStatusStatus? Status { get; set; }
 
-    /// <summary>
-    /// Enum extensions to do fast conversions without the reflection.
-    /// </summary>
-    public static class BatchStatusExtensions
-    {
         /// <summary>
-        /// Converts an enum to a string.
+        /// Number of pending tasks.
         /// </summary>
-        public static string ToValueString(this BatchStatus value)
-        {
-            return value switch
-            {
-                BatchStatus.Completed => "completed",
-                BatchStatus.InProgress => "in_progress",
-                BatchStatus.Staging => "staging",
-                _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
-            };
-        }
+        [global::System.Text.Json.Serialization.JsonPropertyName("tasks_pending")]
+        public int? TasksPending { get; set; }
+
         /// <summary>
-        /// Converts an string to a enum.
+        /// Number of completed tasks.
         /// </summary>
-        public static BatchStatus? ToEnum(string value)
+        [global::System.Text.Json.Serialization.JsonPropertyName("tasks_completed")]
+        public int? TasksCompleted { get; set; }
+
+        /// <summary>
+        /// Additional properties that are not explicitly defined in the schema
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonExtensionData]
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BatchStatus" /> class.
+        /// </summary>
+        /// <param name="status">
+        /// Current batch status.
+        /// </param>
+        /// <param name="tasksPending">
+        /// Number of pending tasks.
+        /// </param>
+        /// <param name="tasksCompleted">
+        /// Number of completed tasks.
+        /// </param>
+#if NET7_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
+        public BatchStatus(
+            global::ScaleAI.BatchStatusStatus? status,
+            int? tasksPending,
+            int? tasksCompleted)
         {
-            return value switch
-            {
-                "completed" => BatchStatus.Completed,
-                "in_progress" => BatchStatus.InProgress,
-                "staging" => BatchStatus.Staging,
-                _ => null,
-            };
+            this.Status = status;
+            this.TasksPending = tasksPending;
+            this.TasksCompleted = tasksCompleted;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BatchStatus" /> class.
+        /// </summary>
+        public BatchStatus()
+        {
+        }
+
     }
 }
