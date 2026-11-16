@@ -30,8 +30,8 @@ namespace ScaleAI
         /// Current batch status.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::ScaleAI.JsonConverters.BatchStatusJsonConverter))]
-        public global::ScaleAI.BatchStatus? Status { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::ScaleAI.JsonConverters.BatchStatus2JsonConverter))]
+        public global::ScaleAI.BatchStatus2? Status { get; set; }
 
         /// <summary>
         /// ISO 8601 timestamp of batch creation.
@@ -79,7 +79,7 @@ namespace ScaleAI
             string? project,
             string? name,
             string? callback,
-            global::ScaleAI.BatchStatus? status,
+            global::ScaleAI.BatchStatus2? status,
             global::System.DateTime? createdAt,
             object? metadata)
         {

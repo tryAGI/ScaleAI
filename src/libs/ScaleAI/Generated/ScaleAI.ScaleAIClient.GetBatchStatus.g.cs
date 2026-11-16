@@ -49,7 +49,7 @@ namespace ScaleAI
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::ScaleAI.BatchStatus2> GetBatchStatusAsync(
+        public async global::System.Threading.Tasks.Task<global::ScaleAI.BatchStatus> GetBatchStatusAsync(
             string batchName,
             global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -70,7 +70,7 @@ namespace ScaleAI
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus2>> GetBatchStatusAsResponseAsync(
+        public async global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus>> GetBatchStatusAsResponseAsync(
             string batchName,
             global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -348,9 +348,9 @@ namespace ScaleAI
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    var __value = global::ScaleAI.BatchStatus2.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::ScaleAI.BatchStatus.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus2>(
+                                    return new global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus>(
                                         statusCode: __response.StatusCode,
                                         headers: global::ScaleAI.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,
@@ -380,9 +380,9 @@ namespace ScaleAI
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    var __value = await global::ScaleAI.BatchStatus2.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::ScaleAI.BatchStatus.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus2>(
+                                    return new global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus>(
                                         statusCode: __response.StatusCode,
                                         headers: global::ScaleAI.AutoSDKHttpResponse.CreateHeaders(__response),
                                         requestUri: __response.RequestMessage?.RequestUri,

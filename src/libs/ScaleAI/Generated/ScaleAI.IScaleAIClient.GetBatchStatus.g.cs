@@ -12,7 +12,7 @@ namespace ScaleAI
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
-        global::System.Threading.Tasks.Task<global::ScaleAI.BatchStatus2> GetBatchStatusAsync(
+        global::System.Threading.Tasks.Task<global::ScaleAI.BatchStatus> GetBatchStatusAsync(
             string batchName,
             global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);
@@ -24,7 +24,7 @@ namespace ScaleAI
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::ScaleAI.ApiException"></exception>
-        global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus2>> GetBatchStatusAsResponseAsync(
+        global::System.Threading.Tasks.Task<global::ScaleAI.AutoSDKHttpResponse<global::ScaleAI.BatchStatus>> GetBatchStatusAsResponseAsync(
             string batchName,
             global::ScaleAI.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default);

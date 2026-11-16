@@ -3,10 +3,10 @@
 namespace ScaleAI.JsonConverters
 {
     /// <inheritdoc />
-    public sealed class BatchStatusJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::ScaleAI.BatchStatus>
+    public sealed class BatchStatus2NullableJsonConverter : global::System.Text.Json.Serialization.JsonConverter<global::ScaleAI.BatchStatus2?>
     {
         /// <inheritdoc />
-        public override global::ScaleAI.BatchStatus Read(
+        public override global::ScaleAI.BatchStatus2? Read(
             ref global::System.Text.Json.Utf8JsonReader reader,
             global::System.Type typeToConvert,
             global::System.Text.Json.JsonSerializerOptions options)
@@ -18,7 +18,7 @@ namespace ScaleAI.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::ScaleAI.BatchStatusExtensions.ToEnum(stringValue) ?? default;
+                        return global::ScaleAI.BatchStatus2Extensions.ToEnum(stringValue);
                     }
 
                     break;
@@ -26,11 +26,11 @@ namespace ScaleAI.JsonConverters
                 case global::System.Text.Json.JsonTokenType.Number:
                 {
                     var numValue = reader.GetInt32();
-                    return (global::ScaleAI.BatchStatus)numValue;
+                    return (global::ScaleAI.BatchStatus2)numValue;
                 }
                 case global::System.Text.Json.JsonTokenType.Null:
                 {
-                    return default(global::ScaleAI.BatchStatus);
+                    return default(global::ScaleAI.BatchStatus2?);
                 }
                 default:
                     throw new global::System.ArgumentOutOfRangeException(nameof(reader));
@@ -42,12 +42,19 @@ namespace ScaleAI.JsonConverters
         /// <inheritdoc />
         public override void Write(
             global::System.Text.Json.Utf8JsonWriter writer,
-            global::ScaleAI.BatchStatus value,
+            global::ScaleAI.BatchStatus2? value,
             global::System.Text.Json.JsonSerializerOptions options)
         {
             writer = writer ?? throw new global::System.ArgumentNullException(nameof(writer));
 
-            writer.WriteStringValue(global::ScaleAI.BatchStatusExtensions.ToValueString(value));
+            if (value == null)
+            {
+                writer.WriteNullValue();
+            }
+            else
+            {
+                writer.WriteStringValue(global::ScaleAI.BatchStatus2Extensions.ToValueString(value.Value));
+            }
         }
     }
 }

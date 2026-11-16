@@ -4,66 +4,54 @@
 namespace ScaleAI
 {
     /// <summary>
-    ///
+    /// Current batch status.
     /// </summary>
-    public sealed partial class BatchStatus2
+    public enum BatchStatus2
     {
         /// <summary>
-        /// Current batch status.
+        ///
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::ScaleAI.JsonConverters.BatchStatusStatusJsonConverter))]
-        public global::ScaleAI.BatchStatusStatus? Status { get; set; }
-
+        Completed,
         /// <summary>
-        /// Number of pending tasks.
+        ///
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tasks_pending")]
-        public int? TasksPending { get; set; }
-
+        InProgress,
         /// <summary>
-        /// Number of completed tasks.
+        ///
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("tasks_completed")]
-        public int? TasksCompleted { get; set; }
+        Staging,
+    }
 
+    /// <summary>
+    /// Enum extensions to do fast conversions without the reflection.
+    /// </summary>
+    public static class BatchStatus2Extensions
+    {
         /// <summary>
-        /// Additional properties that are not explicitly defined in the schema
+        /// Converts an enum to a string.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonExtensionData]
-        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BatchStatus2" /> class.
-        /// </summary>
-        /// <param name="status">
-        /// Current batch status.
-        /// </param>
-        /// <param name="tasksPending">
-        /// Number of pending tasks.
-        /// </param>
-        /// <param name="tasksCompleted">
-        /// Number of completed tasks.
-        /// </param>
-#if NET7_0_OR_GREATER
-        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
-#endif
-        public BatchStatus2(
-            global::ScaleAI.BatchStatusStatus? status,
-            int? tasksPending,
-            int? tasksCompleted)
+        public static string ToValueString(this BatchStatus2 value)
         {
-            this.Status = status;
-            this.TasksPending = tasksPending;
-            this.TasksCompleted = tasksCompleted;
+            return value switch
+            {
+                BatchStatus2.Completed => "completed",
+                BatchStatus2.InProgress => "in_progress",
+                BatchStatus2.Staging => "staging",
+                _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
+            };
         }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="BatchStatus2" /> class.
+        /// Converts an string to a enum.
         /// </summary>
-        public BatchStatus2()
+        public static BatchStatus2? ToEnum(string value)
         {
+            return value switch
+            {
+                "completed" => BatchStatus2.Completed,
+                "in_progress" => BatchStatus2.InProgress,
+                "staging" => BatchStatus2.Staging,
+                _ => null,
+            };
         }
-
     }
 }

@@ -19,9 +19,9 @@ namespace ScaleAI
 
             typeof(global::ScaleAI.JsonConverters.CreateProjectRequestPipelineNullableJsonConverter),
 
-            typeof(global::ScaleAI.JsonConverters.BatchStatusJsonConverter),
+            typeof(global::ScaleAI.JsonConverters.BatchStatus2JsonConverter),
 
-            typeof(global::ScaleAI.JsonConverters.BatchStatusNullableJsonConverter),
+            typeof(global::ScaleAI.JsonConverters.BatchStatus2NullableJsonConverter),
 
             typeof(global::ScaleAI.JsonConverters.BatchStatusStatusJsonConverter),
 
@@ -90,9 +90,9 @@ namespace ScaleAI
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.CreateProjectRequestPipeline), TypeInfoPropertyName = "CreateProjectRequestPipeline2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.UpdateProjectParamsRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.Batch))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus), TypeInfoPropertyName = "BatchStatus2_3")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus2), TypeInfoPropertyName = "BatchStatus22")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.CreateBatchRequest))]
-    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus2))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatus))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchStatusStatus), TypeInfoPropertyName = "BatchStatusStatus2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchPrioritizeRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::ScaleAI.BatchListResponse))]
